@@ -11,6 +11,11 @@
       </ul>
     </div>
   <% end %>
+   <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
   <div class="field">
     <%= f.label :email %>
     <%= f.text_field :email %>
@@ -23,5 +28,5 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
   </div>
-  <div class="actions"><%= f.submit %><%=link_to "Log IN", login_path %></div>
+  <div class="actions"><%= f.submit %><%=log%></div>
 <% end %>

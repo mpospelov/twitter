@@ -1,7 +1,12 @@
 TESTProjects::Application.routes.draw do
   resources :users
   resources :sessions
+  resources :posts
+  match 'posts/:id/new' => 'post#new'
   match '/login' => 'sessions#new'
+  match '/logout' => 'sessions#destroy'
+  root :to => 'users#new'
+  match 'users/:id' => 'users#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -51,7 +56,7 @@ TESTProjects::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'users#new'
+
 
 
   # See how all your routes lay out with "rake routes"
