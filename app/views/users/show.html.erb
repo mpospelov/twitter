@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <% user=User.find(params[:id])%>
+  <%= user.email %>
+
+
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= user.name %>
+</p>
+<p>
+  <b>Posts:</b> <br/>
+
+  <% user.posts.each do |p| %>
+    <tr>
+      <td><%= p.content %><br/></td>
+    </tr>
+  <%end%>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to "Log OUT", logout_path %>|
+<%= link_to 'Wright POST', new_post_path %>

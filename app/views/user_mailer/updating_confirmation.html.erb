@@ -1,0 +1,6 @@
+
+<p>Hello, <%= @user.name %>, again...</p>
+<p>You upadate your profile!!!</p>
+<p>Your new pass is: <%= @user.password %></p>
+
+<p>You can edit your profile again... here <%= link_to "Edit Profile", edit_user_url(@user, :host => "localhost:3000") %></p>
