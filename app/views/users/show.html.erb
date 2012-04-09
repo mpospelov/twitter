@@ -1,28 +1,20 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Email:</b>
   <% user=User.find(params[:id])%>
   <%= user.email %>
-
-
 </p>
-
 <p>
   <b>Name:</b>
   <%= user.name %>
 </p>
 <p>
   <b>Posts:</b> <br/>
-
-  <% user.posts.each do |p| %>
-    <tr>
-      <td><%= p.content %><br/></td>
-    </tr>
+  <% user.posts.each do |post| %>
+     <%= button_to 'x', post,method: :delete %>
+    <%= post.content %><br/><br/>
   <%end%>
 </p>
+<%= button_to 'Wright Post', new_post_path %>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to "Log OUT", logout_path %>|
-<%= link_to 'Wright POST', new_post_path %>
+

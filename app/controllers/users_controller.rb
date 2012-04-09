@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user=User.new(params[:user])
     if @user.save
       UserMailer.registration_confirmation(@user).deliver
+      session[:user_id] = @user.id
       redirect_to user_url(@user), :notice => "Hi!"
     else
       render "new"
