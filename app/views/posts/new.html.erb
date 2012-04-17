@@ -1,18 +1,17 @@
-<%= form_for @post do |f| %>
-  <% if @post.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @post.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<%- model_class = @post.class -%>
+<h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+                               :default => "New #{model_class.model_name.human}") %></h1>
+<%= form_for @post, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :content, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :content, :class => 'text_field' %>
     </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_field :content %>
   </div>
-  <div class="actions"><%= f.submit %></div>
 
-<%end%>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                root_path, :class => 'btn' %>
+  </div>
+<% end %>

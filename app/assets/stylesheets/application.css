@@ -11,3 +11,14 @@
  *= require_self
  *= require_tree .
 */
+.post{
+  padding: 10px 0 10px 10px;
+  border-top: 1px solid #E8E8E8;
+}
+.del{
+  padding: 0 10px 0 0;
+  float:right;
+}
+.random_user{
+  font-size: 18px;
+}

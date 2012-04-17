@@ -1,8 +1,13 @@
 TESTProjects::Application.routes.draw do
-  resources :users
-  resources :sessions
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :relationships, :only => [:create, :destroy]
   resources :posts
-  match 'posts/:id/new' => 'post#new'
+  resources :sessions
+
   match '/login' => 'sessions#new'
   match '/logout' => 'sessions#destroy'
   root :to => 'users#new'

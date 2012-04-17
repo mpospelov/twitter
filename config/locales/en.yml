@@ -2,4 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  new_post: "New Post"
   hello: "Hello world"
+  helpers:
+    links:
+      edit: "Edit Please"

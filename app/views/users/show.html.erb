@@ -1,20 +1,58 @@
+<%- model_class = @user.class -%>
+<h1><%= @user.name %></h1>
+<%if @user != current_user%>
+  <%if current_user.following?(@user)%>
+    <%= form_for current_user.relationships.find_by_followed_id(@user),
+      :html => { :method => :delete } do |f| %>
+      <div class="actions"><%= f.submit "Unfollow" %></div>
+    <%end%>
+  <%else%>
+    <%= form_for current_user.relationships.build(:followed_id => @user.id,:follower_id => current_user.id) do |f| %>
+      <div><%= f.hidden_field :followed_id %></div>
+
+      <div class="actions"><%= f.submit "Follow" %></div>
+    <%end%>
+  <%end%>
+<%end%>
+<br/><br/>
+<%if session[:user_id]%>
+  <%if current_user == @user%>
+    <%=link_to "Followers",followers_user_path,:class => 'btn'%>
+    <%=link_to "Following",following_user_path, :class => 'btn'%>
+  <%end%>
+<%end%>
+
+<br/><br/>
+<%= form_for @post, :remote => true do |f| %>
+  <div class="control-group">
+    <%= f.label :content, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :content, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+     </div>
+<% end %>
+
 <p>
-  <b>Email:</b>
-  <% user=User.find(params[:id])%>
-  <%= user.email %>
-</p>
-<p>
-  <b>Name:</b>
-  <%= user.name %>
-</p>
-<p>
-  <b>Posts:</b> <br/>
-  <% user.posts.each do |post| %>
-     <%= button_to 'x', post,method: :delete %>
-    <%= post.content %><br/><br/>
+  <%@user.posts.reverse.each do |post|%>
+    <div class="post">
+      <%=post.content%>
+      <div class="del">
+        <%=link_to 'delete',post, :method => :delete%>
+      </div>
+    </div>
   <%end%>
 </p>
-<%= button_to 'Wright Post', new_post_path %>
 
-
-
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+    users_path, :class => 'btn'  %>
+  <%= link_to t('new_post', :default => t("helpers.links.edit")),
+    new_post_path, :class => 'btn' %>
+</div>
+<%=content_for :footer do%>
+  blabla
+<%end%>

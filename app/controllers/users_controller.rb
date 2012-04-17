@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :check_user, :only => [:edit,:destroy]
 
   def new
     @user = User.new
@@ -8,8 +9,7 @@ class UsersController < ApplicationController
     @user=User.new(params[:user])
     if @user.save
       UserMailer.registration_confirmation(@user).deliver
-      session[:user_id] = @user.id
-      redirect_to user_url(@user), :notice => "Hi!"
+      redirect_to login_path, :notice => "Hi!"
     else
       render "new"
     end
@@ -31,18 +31,35 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
 
-    def show
-      @user = User.find(params[:id])
+  def show
+    @post = Post.new
+    @user = User.find(params[:id])
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    session[:user_id]=nil
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.json { head :no_content }
     end
+  end
 
-    def destroy
-      @user = User.find(params[:id])
-      @user.destroy
-      respond_to do |format|
-        format.html { redirect_to root_url }
-        format.json { head :no_content }
-      end
+  def followers
+    @relationships = Relationship.all
+  end
+
+  def following
+    @relationships = current_user.relationships
+  end
+
+  private
+  def check_user
+    if params[:id].to_i!=current_user.id
+      redirect_to user_path(current_user), :notice => "You don't have permission"
     end
   end
 end
