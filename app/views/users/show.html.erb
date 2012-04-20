@@ -7,7 +7,7 @@
       <div class="actions"><%= f.submit "Unfollow" %></div>
     <%end%>
   <%else%>
-    <%= form_for current_user.relationships.build(:followed_id => @user.id,:follower_id => current_user.id) do |f| %>
+    <%= form_for current_user.relationships.build(:followed_id => @user.id) do |f| %>
       <div><%= f.hidden_field :followed_id %></div>
 
       <div class="actions"><%= f.submit "Follow" %></div>
