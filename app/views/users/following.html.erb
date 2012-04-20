@@ -1,0 +1,9 @@
+<h1>Following</h1>
+<%@relationships.each do |rel|%>
+  <%id = rel.followed_id%>
+  <%user = User.find(id)%>
+  <div class="random_user">
+
+    <%=link_to user.name, user_path(user)%>
+  </div>
+<%end%>

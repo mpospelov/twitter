@@ -1,0 +1,11 @@
+<h1>Followers</h1>
+<%@relationships.each do |rel|%>
+  <%id = rel.follower_id%>
+  <%if current_user.id != id && current_user.id == rel.followed_id%>
+
+    <%user = User.find(id)%>
+    <div class="random_user">
+      <%=link_to user.name, user_path(user)%>
+    </div>
+  <%end%>
+<%end%>
