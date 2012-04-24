@@ -1,4 +1,3 @@
-$:.unshift(File.expand_path('./lib',ENV['rvm_path']))
 require 'bundler/capistrano'
 require 'rvm/capistrano'
 set :application, "Twitter"
@@ -7,7 +6,7 @@ set :deploy_to, "/opt/mishaS_app"
 set :user, "root"
 set :use_sudo, false
 
-set :rvm_ruby_string, '1.9.3'
+set :rvm_ruby_string, '1.9.3-p194'
 set :rvm_bin_path, '/usr/local/rvm/bin'
 
 
