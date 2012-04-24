@@ -23,6 +23,7 @@ group :assets do
 end
 group :development do
   gem 'rvm-capistrano'
+  gem 'thin'
 end
 
 gem 'jquery-rails'
