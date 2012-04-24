@@ -25,12 +25,15 @@ role :db,  "78.46.250.253", :primary => true # This is where Rails migrations wi
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
- namespace :deploy do
-   task :start do
-     run "cd #{deploy_to}/current && RAILS_ENV=production bundle exec rails s -p 3003 -d"
-   end
-   task :stop do ; end
-   task :restart, :roles => :app, :except => { :no_release => true } do
-     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-   end
- end
+after 'deploy:update_code' do
+  run "cd #{deploy_to}; RAILS_ENV=production rake assets:precompile"
+end
+namespace :deploy do
+  task :start do
+    run "cd #{deploy_to}/current && RAILS_ENV=production bundle exec rails s -p 3003 -d"
+  end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
