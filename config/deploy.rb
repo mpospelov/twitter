@@ -1,5 +1,7 @@
 require 'bundler/capistrano'
 require 'rvm/capistrano'
+load 'deploy/assets'
+
 set :application, "Twitter"
 set :repository,  "git@github.com:mixan946/twitter.git"
 set :deploy_to, "/opt/mishaS_app"
