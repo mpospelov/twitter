@@ -27,11 +27,11 @@ role :db,  "78.46.250.253", :primary => true # This is where Rails migrations wi
 
 # If you are using Passenger mod_rails uncomment this:
 after 'deploy:update_code' do
-  run "cd #{deploy_to}/current; RAILS_ENV=development rake assets:precompile"
+  run "cd #{deploy_to}/current; RAILS_ENV=production rake assets:precompile"
 end
 namespace :deploy do
   task :start do
-    run "cd #{deploy_to}/current && RAILS_ENV=production bundle exec rails s -p 3003 -d"
+    run "cd #{deploy_to}/current && RAILS_ENV=development bundle exec rails s -p 3003 -d"
   end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
