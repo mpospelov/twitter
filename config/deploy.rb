@@ -31,7 +31,7 @@ after 'deploy:update_code' do
 end
 namespace :deploy do
   task :start do
-    run "cd #{deploy_to}/current && RAILS_ENV=development bundle exec rails s -p 3003 -d"
+    run "cd #{deploy_to}/current && RAILS_ENV=production bundle exec rails s -p 3003 -d"
   end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
